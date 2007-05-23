@@ -1,0 +1,107 @@
+%\VignetteIndexEntry{CCl4}
+%\VignetteDepends{Biobase,limma}
+%\VignetteKeywords{ExpressionData}
+%\VignettePackage{CCl4}
+
+\documentclass[a4paper]{article}
+
+\usepackage{times}
+\usepackage{a4wide}
+\usepackage{verbatim}
+
+\newcommand{\Robject}[1]{\texttt{#1}}
+\newcommand{\Rpackage}[1]{\textit{#1}}
+\newcommand{\Rclass}[1]{\textit{#1}}
+\newcommand{\Rfunction}[1]{{\small\texttt{#1}}}
+
+\SweaveOpts{keep.source=TRUE,eps=FALSE,include=FALSE,width=4,height=4.5} 
+
+\begin{document}
+
+\title{From Genepix data file to RGList to NChannelSet}
+\author{Audrey Kauffmann, Wolfgang Huber}
+\maketitle
+
+\section*{Load the required packages}
+
+<<loadlibs>>=
+library("Biobase")
+library("limma")
+library("CCl4")
+@ 
+
+\section*{Read the data and convert them into an RGList}  
+The Genepix (\texttt{.gpr}) data files are in the \texttt{extdata} 
+directory of the \Rpackage{CCl4} package.
+We locate it on your filesystem with the function \Rfunction{system.file}.
+
+<<RGList, results=hide>>=
+datapath <- system.file("extdata", package="CCl4")
+p <- read.table(file.path(datapath, "samplesInfo.txt"), sep="\t", 
+                row.names=1L, as.is=TRUE, header=TRUE)
+
+
+CCl4_RGList <- read.maimages(files=rownames(p), 
+   path = datapath, 
+   source = "genepix", 
+   columns = list(R = "F635 Median", Rb = "B635 Median", 
+                  G = "F532 Median", Gb = "B532 Median"))
+
+outdir = file.path("..", "..", "data")
+if(!isTRUE(file.info(outdir)$isdir))
+  outdir = tempdir()
+
+save(CCl4_RGList, file = file.path(outdir, "CCl4_RGList.RData"))
+@ 
+
+The function \Rfunction{read.maimages} from the \Rpackage{limma} package reads
+the \texttt{.gpr} files andbuilds an \Rclass{RGList} object from it.
+
+The output is written to
+<<tempdir>>=
+outdir
+@ 
+
+\section*{Build an NChannelSet from the RGList} 
+ 
+Once the \Rclass{RGList} object has been created, 
+we can build an \Rclass{NChannelSet}.
+
+<<CCl4-NChannelSet>>=
+
+
+varMetadata <- data.frame(labelDescription=character(ncol(p)),
+                              channel=factor(rep("_ALL_", ncol(p))))
+phenoData <- new("AnnotatedDataFrame",
+                     data = p,
+                     varMetadata = varMetadata)
+featureData <- new("AnnotatedDataFrame", data = CCl4_RGList$genes)
+assayData <- with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
+CCl4 <- new("NChannelSet",
+              assayData = assayData,
+              featureData = featureData,
+              phenoData <- phenoData)
+save(CCl4, file = file.path(outdir, "CCl4.RData"))
+@ 
+
+
+
+\begin{table*}[tbp]
+\begin{minipage}{\textwidth}
+{\small
+<<sessionInfo, print=TRUE>>=
+sessionInfo()
+@ 
+}\end{minipage}
+\caption{\label{tab:sessioninfo}%
+The output of \Rfunction{sessionInfo} on the build system 
+after running this vignette.}
+\end{table*}
+
+
+
+
+\end{document}
+
+
+
