@@ -19,7 +19,11 @@
     with 44290 probes and 18 arrays.
   \code{CCl4_RGList} is an \code{\link[limma:rglist]{RGList}} with the
     same data.
+  }
+  \source{
+Carole Foy, Holger Laux, Timothy Wilkes from LGC company in London, UK.
 }
+
 \examples{
 data("CCl4")
 show(CCl4)
@@ -27,4 +31,5 @@ show(CCl4)
 data("CCl4_RGList") 
 show(CCl4_RGList)
 }
+
 \keyword{datasets}
