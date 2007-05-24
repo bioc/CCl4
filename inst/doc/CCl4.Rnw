@@ -37,11 +37,11 @@ We locate it on your filesystem with the function \Rfunction{system.file}.
 
 <<RGList, results=hide>>=
 datapath <- system.file("extdata", package="CCl4")
-p <- read.table(file.path(datapath, "samplesInfo.txt"), sep="\t", 
-                row.names=1L, as.is=TRUE, header=TRUE)
+p <- read.AnnotatedDataFrame2(file.path(datapath, "samplesInfo.txt"), sep="\t", 
+                row.names=1L, as.is=TRUE, header=TRUE, varmetadata.char="#")
 
 
-CCl4_RGList <- read.maimages(files=rownames(p), 
+CCl4_RGList <- read.maimages(files=sampleNames(p), 
    path = datapath, 
    source = "genepix", 
    columns = list(R = "F635 Median", Rb = "B635 Median", 
@@ -73,7 +73,7 @@ we can build an \Rclass{NChannelSet}.
 varMetadata <- data.frame(labelDescription=character(ncol(p)),
                               channel=factor(rep("_ALL_", ncol(p))))
 phenoData <- new("AnnotatedDataFrame",
-                     data = p,
+                     data = pData(p),
                      varMetadata = varMetadata)
 featureData <- new("AnnotatedDataFrame", data = CCl4_RGList$genes)
 assayData <- with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
