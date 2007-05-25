@@ -37,9 +37,8 @@ We locate it on your filesystem with the function \Rfunction{system.file}.
 
 <<RGList, results=hide>>=
 datapath <- system.file("extdata", package="CCl4")
-p <- read.AnnotatedDataFrame2(file.path(datapath, "samplesInfo.txt"), sep="\t", 
-                row.names=1L, as.is=TRUE, header=TRUE, varmetadata.char="#")
 
+p <- read.AnnotatedDataFrame("samplesInfo.txt", path=datapath)
 
 CCl4_RGList <- read.maimages(files=sampleNames(p), 
    path = datapath, 
@@ -69,18 +68,17 @@ we can build an \Rclass{NChannelSet}.
 
 <<CCl4-NChannelSet>>=
 
+featureData= new("AnnotatedDataFrame", data = CCl4_RGList$genes)
 
-varMetadata <- data.frame(labelDescription=character(ncol(p)),
-                              channel=factor(rep("_ALL_", ncol(p))))
-phenoData <- new("AnnotatedDataFrame",
-                     data = pData(p),
-                     varMetadata = varMetadata)
-featureData <- new("AnnotatedDataFrame", data = CCl4_RGList$genes)
-assayData <- with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
+assayData = with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
+
+varMetadata(p)$channel=factor(c("G", "R", "G", "R"), 
+                    levels=c(ls(assayData), "_ALL"))
+
 CCl4 <- new("NChannelSet",
               assayData = assayData,
               featureData = featureData,
-              phenoData <- phenoData)
+              phenoData = p)
 save(CCl4, file = file.path(outdir, "CCl4.RData"))
 @ 
 
