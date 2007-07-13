@@ -33,24 +33,29 @@ library("CCl4")
 \section*{Read the data and convert them into an RGList}  
 The Genepix (\texttt{.gpr}) data files are in the \texttt{extdata} 
 directory of the \Rpackage{CCl4} package.
-We locate it on your filesystem with the function \Rfunction{system.file}.
-
+If you have the package installed, we can locate them 
+on your filesystem with the function \Rfunction{system.file}.
+If the files are somewhere else, please adapt the below assignment
+to \Robject{datapath}.
+%
 <<RGList, results=hide>>=
-datapath <- system.file("extdata", package="CCl4")
+datapath = system.file("extdata", package="CCl4")
 
-p <- read.AnnotatedDataFrame("samplesInfo.txt", path=datapath)
+p = read.AnnotatedDataFrame("samplesInfo.txt", path=datapath)
 
-CCl4_RGList <- read.maimages(files=sampleNames(p), 
+CCl4_RGList = read.maimages(files=sampleNames(p), 
    path = datapath, 
    source = "genepix", 
    columns = list(R = "F635 Median", Rb = "B635 Median", 
                   G = "F532 Median", Gb = "B532 Median"))
-@ 
+@
+% 
 If this code is run in the \texttt{inst/doc} directory of the 
-\Rpackage{CCl4} package,
+\Rpackage{CCl4} (source) package,
 the output data files will be written directly into the  
-\texttt{data} directory. Otherwise, just write into a temporary 
+\texttt{data} directory of the package. Otherwise, just write into a temporary 
 directory.
+%
 <<outdir>>=
 outdir = file.path("..", "..", "data")
 if(!isTRUE(file.info(outdir)$isdir))
@@ -74,7 +79,7 @@ we can build an \Rclass{NChannelSet}.
 
 <<CCl4-NChannelSet>>=
 
-featureData= new("AnnotatedDataFrame", data = CCl4_RGList$genes)
+featureData = new("AnnotatedDataFrame", data = CCl4_RGList$genes)
 
 assayData = with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
 
