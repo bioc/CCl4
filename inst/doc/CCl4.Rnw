@@ -18,7 +18,7 @@
 
 \begin{document}
 
-\title{From Genepix data file to RGList to NChannelSet}
+\title{From the Genepix data files to RGList to NChannelSet}
 \author{Audrey Kauffmann, Wolfgang Huber}
 \maketitle
 
@@ -45,7 +45,13 @@ CCl4_RGList <- read.maimages(files=sampleNames(p),
    source = "genepix", 
    columns = list(R = "F635 Median", Rb = "B635 Median", 
                   G = "F532 Median", Gb = "B532 Median"))
-
+@ 
+If this code is run in the \texttt{inst/doc} directory of the 
+\Rpackage{CCl4} package,
+the output data files will be written directly into the  
+\texttt{data} directory. Otherwise, just write into a temporary 
+directory.
+<<outdir>>=
 outdir = file.path("..", "..", "data")
 if(!isTRUE(file.info(outdir)$isdir))
   outdir = tempdir()
