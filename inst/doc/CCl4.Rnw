@@ -38,9 +38,11 @@ on your filesystem with the function \Rfunction{system.file}.
 If the files are somewhere else, please adapt the below assignment
 to \Robject{datapath}.
 %
-<<RGList, results=hide>>=
+<<datapath>>=
 datapath = system.file("extdata", package="CCl4")
-
+@ 
+%
+<<RGList, results=hide>>=
 p = read.AnnotatedDataFrame("samplesInfo.txt", path=datapath)
 
 CCl4_RGList = read.maimages(files=sampleNames(p), 
