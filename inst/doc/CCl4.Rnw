@@ -86,7 +86,7 @@ featureData = new("AnnotatedDataFrame", data = CCl4_RGList$genes)
 assayData = with(CCl4_RGList, assayDataNew(R=R, G=G, Rb=Rb, Gb=Gb))
 
 varMetadata(p)$channel=factor(c("G", "R", "G", "R"), 
-                    levels=c(ls(assayData), "_ALL"))
+                    levels=c(ls(assayData), "_ALL_"))
 
 CCl4 <- new("NChannelSet",
               assayData = assayData,
