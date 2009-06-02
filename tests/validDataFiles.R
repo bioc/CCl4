@@ -1,3 +1,4 @@
+library("CCl4")
 dataPath = system.file("extdata", package="CCl4")
 if(setequal(dir(dataPath),
             c("251316214319_auto_479-628.gpr", "251316214320_auto_478-629.gpr",
