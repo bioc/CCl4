@@ -1,0 +1,24 @@
+# filename: The file name of the Genepix array quantitation file
+# Cy3: name of the RNA sample that was labeled with Cy3
+# Cy5: name of the RNA sample that was labeled with Cy5
+# RIN.Cy3: Agilent's RNA integrity number for the Cy3 RNA sample
+# RIN.Cy5: Agilent's RNA integrity number for the Cy5 RNA sample
+filename	Cy3	Cy5	RIN.Cy3	RIN.Cy5
+251316214319_auto_479-628.gpr	DMSO	CCl4	9.0	9.7
+251316214320_auto_478-629.gpr	DMSO	CCl4	9.0	5.0
+251316214321_auto_410-592.gpr	DMSO	CCl4	9.0	2.5
+251316214329_auto_429-673.gpr	DMSO	CCl4	9.0	2.5
+251316214330_auto_457-658.gpr	CCl4	DMSO	9.7	9.0
+251316214331_auto_431-588.gpr	CCl4	DMSO	5.0	9.0
+251316214332_auto_492-625.gpr	CCl4	DMSO	2.5	9.0
+251316214333_auto_487-712.gpr	DMSO	CCl4	9.0	9.7
+251316214379_auto_443-617.gpr	CCl4	DMSO	9.7	9.0
+251316214380_auto_493-682.gpr	CCl4	DMSO	5.0	9.0
+251316214381_auto_497-602.gpr	CCl4	DMSO	2.5	9.0
+251316214382_auto_481-674.gpr	DMSO	CCl4	9.0	9.7
+251316214384_auto_450-642.gpr	DMSO	CCl4	9.0	5.0
+251316214389_auto_456-694.gpr	DMSO	CCl4	9.0	5.0
+251316214390_auto_456-718.gpr	DMSO	CCl4	9.0	2.5
+251316214391_auto_475-599.gpr	CCl4	DMSO	9.7	9.0
+251316214393_auto_460-575.gpr	CCl4	DMSO	5.0	9.0
+251316214394_auto_463-521.gpr	CCl4	DMSO	2.5	9.0
