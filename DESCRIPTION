@@ -1,6 +1,6 @@
 Package: CCl4
 Title: Carbon Tetrachloride (CCl4) treated hepatocytes
-Version: 1.28.0
+Version: 1.29.0
 Author: Audrey Kauffmann, Wolfgang Huber
 Description: NChannelSet for rat hepatocytes treated with Carbon Tetrachloride (CCl4) data from LGC company. 
 Maintainer: Audrey Kauffmann <audrey@ebi.ac.uk>
